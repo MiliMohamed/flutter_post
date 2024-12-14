@@ -18,12 +18,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Posts App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: BlocProvider(
-        create: (_) => PostsBloc(repository)..add(GetAllPosts()),
-        child: PostsListScreen(),
+    return BlocProvider(
+      create: (_) => PostsBloc(repository)..add(GetAllPosts()),
+      child: MaterialApp(
+        title: 'Flutter Posts App',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: const PostsListScreen(),
       ),
     );
   }

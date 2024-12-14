@@ -5,23 +5,23 @@ enum PostsStatus { initial, loading, success, error }
 class PostsState {
   final PostsStatus status;
   final List<Post> posts;
-  final String? error;
+  final String? exception;
 
-  PostsState({
+  const PostsState({
     this.status = PostsStatus.initial,
     this.posts = const [],
-    this.error,
+    this.exception,
   });
 
   PostsState copyWith({
     PostsStatus? status,
     List<Post>? posts,
-    String? error,
+    String? exception,
   }) {
     return PostsState(
       status: status ?? this.status,
       posts: posts ?? this.posts,
-      error: error ?? this.error,
+      exception: exception ?? this.exception,
     );
   }
 }

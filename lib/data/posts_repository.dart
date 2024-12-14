@@ -2,7 +2,7 @@ import 'post.dart';
 import 'posts_data_source.dart';
 
 class PostsRepository {
-  final PostsDataSource dataSource;
+  final FakePostsDataSource dataSource;
 
   PostsRepository(this.dataSource);
 

@@ -22,7 +22,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       final posts = await repository.fetchPosts();
       emit(state.copyWith(status: PostsStatus.success, posts: posts));
     } catch (e) {
-      emit(state.copyWith(status: PostsStatus.error, error: e.toString()));
+      emit(state.copyWith(status: PostsStatus.error, exception: e.toString()));
     }
   }
 
@@ -34,7 +34,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       final updatedPosts = List<Post>.from(state.posts)..add(newPost);
       emit(state.copyWith(status: PostsStatus.success, posts: updatedPosts));
     } catch (e) {
-      emit(state.copyWith(status: PostsStatus.error, error: e.toString()));
+      emit(state.copyWith(status: PostsStatus.error, exception: e.toString()));
     }
   }
 
@@ -46,7 +46,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       final updatedPosts = state.posts.map((post) => post.id == updatedPost.id ? updatedPost : post).toList();
       emit(state.copyWith(status: PostsStatus.success, posts: updatedPosts));
     } catch (e) {
-      emit(state.copyWith(status: PostsStatus.error, error: e.toString()));
+      emit(state.copyWith(status: PostsStatus.error, exception: e.toString()));
     }
   }
 }

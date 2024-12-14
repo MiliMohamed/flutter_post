@@ -1,70 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/posts_bloc.dart';
 import '../data/post.dart';
 
-class PostDetailScreen extends StatefulWidget {
+class PostDetailScreen extends StatelessWidget {
   final Post post;
 
   const PostDetailScreen({Key? key, required this.post}) : super(key: key);
 
   @override
-  State<PostDetailScreen> createState() => _PostDetailScreenState();
-}
-
-class _PostDetailScreenState extends State<PostDetailScreen> {
-  late TextEditingController _titleController;
-  late TextEditingController _descriptionController;
-
-  @override
-  void initState() {
-    super.initState();
-    _titleController = TextEditingController(text: widget.post.title);
-    _descriptionController = TextEditingController(text: widget.post.description);
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final titleController = TextEditingController(text: post.title);
+    final descriptionController = TextEditingController(text: post.description);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Post: ${widget.post.title}')),
+      appBar: AppBar(
+        title: Text('Edit Post'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.save),
+            onPressed: () {
+              context.read<PostsBloc>().add(UpdatePost(
+                post.id,
+                titleController.text,
+                descriptionController.text,
+              ));
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              'Edit your post',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
             TextField(
-              controller: _titleController,
+              controller: titleController,
               decoration: const InputDecoration(labelText: 'Title'),
             ),
             const SizedBox(height: 16),
             TextField(
-              controller: _descriptionController,
+              controller: descriptionController,
               decoration: const InputDecoration(labelText: 'Description'),
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () {
-                final updatedPost = Post(
-                  id: widget.post.id,
-                  title: _titleController.text,
-                  description: _descriptionController.text,
-                );
-
-                context.read<PostsBloc>().add(UpdatePost(
-                  updatedPost.id,
-                  updatedPost.title,
-                  updatedPost.description,
-                ));
-                Navigator.pop(context);
-              },
-              child: const Text('Save Changes'),
+              maxLines: 3,
             ),
           ],
         ),

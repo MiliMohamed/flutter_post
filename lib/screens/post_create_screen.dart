@@ -3,24 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/posts_bloc.dart';
 
-class PostCreateScreen extends StatefulWidget {
-  @override
-  State<PostCreateScreen> createState() => _PostCreateScreenState();
-}
 
-class _PostCreateScreenState extends State<PostCreateScreen> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
+class PostCreateScreen extends StatelessWidget {
+  const PostCreateScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final titleController = TextEditingController();
+    final descriptionController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(title: const Text('Create Post')),
       body: Padding(
@@ -28,21 +19,21 @@ class _PostCreateScreenState extends State<PostCreateScreen> {
         child: Column(
           children: [
             TextField(
-              controller: _titleController,
+              controller: titleController,
               decoration: const InputDecoration(labelText: 'Title'),
             ),
             const SizedBox(height: 16),
             TextField(
-              controller: _descriptionController,
+              controller: descriptionController,
               decoration: const InputDecoration(labelText: 'Description'),
             ),
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                final title = _titleController.text;
-                final description = _descriptionController.text;
-
-                context.read<PostsBloc>().add(CreatePost(title, description));
+                context.read<PostsBloc>().add(CreatePost(
+                  titleController.text,
+                  descriptionController.text,
+                ));
                 Navigator.pop(context);
               },
               child: const Text('Create'),
