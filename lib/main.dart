@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cubit/posts_dart_cubit.dart';
-import 'data/posts_data_source.dart';
+import 'bloc/posts_bloc.dart';
 import 'data/posts_repository.dart';
+import 'data/posts_data_source.dart';
 import 'screens/posts_list_screen.dart';
 
 void main() {
-  final fakeDataSource = FakePostsDataSource();
-  final repository = PostsRepository(fakeDataSource);
-
+  final repository = PostsRepository(FakePostsDataSource());
   runApp(MyApp(repository: repository));
 }
 
@@ -24,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Posts App',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: BlocProvider(
-        create: (_) => PostsCubit(repository),
+        create: (_) => PostsBloc(repository)..add(GetAllPosts()),
         child: PostsListScreen(),
       ),
     );

@@ -1,36 +1,22 @@
-name: flutter_posts
-description: "A new Flutter project."
-
-# Prevent accidental publishing to pub.dev
-publish_to: 'none'
-
-# Version and build number
-version: 1.0.0+1
+name: flutter_posts_app
+description: A Flutter app to manage posts using Bloc and Fake Data Source.
 
 environment:
-  sdk: ">=3.0.0 <4.0.0" # Ensure compatibility with Flutter SDK version
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.1 # State management with Bloc/Cubit
-  cupertino_icons: ^1.0.8 # iOS-style icons
+  flutter_bloc: ^8.1.1
+  cupertino_icons: ^1.0.8
+  meta: ^1.9.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  bloc_test: ^9.0.3 # Bloc testing utilities
-  flutter_lints: ^4.0.0 # Recommended linting rules
+  bloc_test: ^9.0.3
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
-
-  # Uncomment and add assets if needed
-  # assets:
-  #   - assets/images/
-
-  # Uncomment and add custom fonts if needed
-  # fonts:
-  #   - family: CustomFont
-  #     fonts:
-  #       - asset: fonts/CustomFont-Regular.ttf

@@ -36,7 +36,7 @@ class PostsCubit extends Cubit<PostsState> {
   void addPost(Post post) async {
     try {
       await repository.addPost(post);
-      loadPosts(); // Refresh the list
+      loadPosts();
     } catch (_) {
       emit(PostsError('Failed to add post.'));
     }
@@ -45,7 +45,7 @@ class PostsCubit extends Cubit<PostsState> {
   void updatePost(Post post) async {
     try {
       await repository.editPost(post);
-      loadPosts(); // Refresh the list
+      loadPosts();
     } catch (_) {
       emit(PostsError('Failed to update post.'));
     }
